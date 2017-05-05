@@ -2,6 +2,8 @@
     <h4>my list component</h4>
     {{getText()}}
     <br/>
-    <div ng-repeat="item in data" ng-click="logme(this)">{{item}}</div>
+    <ul ng-repeat="item in data" ng-click="logme(this)">
+        <li>{{item.name}}</li>
+    </ul>
     {{toto}}
 </div>

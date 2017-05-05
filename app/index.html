@@ -15,6 +15,8 @@
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
+
+    <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
 </head>
 
 <body>
@@ -62,12 +64,13 @@
             </div>
             <!-- END ng-include approache -->
 
+            <div ng-controller="MasterCtrl as master">
+                <!--directive approach-->
+                <mylist></mylist>
+                <!--ENDdirective approach-->
 
-            <!--directive approach-->
-            <mylist></mylist>
-            <!--ENDdirective approach-->
-
-            <map></map>
+                <map></map>
+            </div>
 
         </div>
 
@@ -117,11 +120,13 @@
     <script src="scripts/directives/listdirective.js"></script>
 
     <script src="components/list/mylist.js"></script>
-
     <script src="scripts/controllers/master.js"></script>
 
     <script src="components/list/listcontroller.js"></script>
+    <script src="scripts/services/getbikes.js"></script>
+    <script src="components/map/mapController.js"></script>
     <script src="components/map/map.js"></script>
+
     <!-- endbuild -->
 
 

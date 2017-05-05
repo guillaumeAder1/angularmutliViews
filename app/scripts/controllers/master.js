@@ -16,6 +16,7 @@ angular.module('testControllerViewsApp')
             { id: 3, name: "xaxa" },
             { id: 4, name: "ikik" }
         ];
+        $scope.selected = "";
 
 
     });
