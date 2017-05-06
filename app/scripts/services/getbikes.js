@@ -19,7 +19,7 @@ angular.module('testControllerViewsApp')
                 return $http.get("https://api.jcdecaux.com/vls/v1/contracts?&apiKey=" + APIkeyDublinBike)
             },
 
-            getCityBike: function(station) {
+            getCityStations: function(station) {
                 return $http.get("https://api.jcdecaux.com/vls/v1/stations?contract=" + station + "&apiKey=" + APIkeyDublinBike);
 
             }

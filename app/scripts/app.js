@@ -19,18 +19,19 @@ angular
         'ui.router'
     ])
     .config(function($routeProvider, $stateProvider) {
-        // $routeProvider
-        //   .when('/', {
-        //     templateUrl: 'views/main.html',
-        //     controller: 'MainCtrl',
-        //     controllerAs: 'main'
-        //   })
-        //   .when('/about', {
-        //     templateUrl: 'views/about.html',
-        //     controller: 'AboutCtrl',
-        //     controllerAs: 'about'
-        //   })
-        //   .otherwise({
-        //     redirectTo: '/'
-        //   });
+        $stateProvider.state('home', {})
+            // $routeProvider
+            //   .when('/', {
+            //     templateUrl: 'views/main.html',
+            //     controller: 'MainCtrl',
+            //     controllerAs: 'main'
+            //   })
+            //   .when('/about', {
+            //     templateUrl: 'views/about.html',
+            //     controller: 'AboutCtrl',
+            //     controllerAs: 'about'
+            //   })
+            //   .otherwise({
+            //     redirectTo: '/'
+            //   });
     });

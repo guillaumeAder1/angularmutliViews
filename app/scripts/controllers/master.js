@@ -18,5 +18,10 @@ angular.module('testControllerViewsApp')
         ];
         $scope.selected = "";
 
+        $scope.$on("_displayStations", function(e, res) {
+            // console.log(e, res)
+            $scope.$broadcast("_displayStations::send", res);
+        })
+
 
     });
