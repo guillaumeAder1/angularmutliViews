@@ -1,9 +1,8 @@
-<div>
-    <h4>my list component</h4>
-    {{getText()}}
-    <br/>
-    <ul ng-repeat="item in data" ng-click="logme(this)">
-        <li>{{item.name}}</li>
-    </ul>
-    {{toto}}
+<div id="list">
+    <input type="text" ng-model="test">
+
+    <div ng-repeat="item in data | filter:test" ng-click="logme(this)">
+        {{item.name}}
+    </div>
+
 </div>
