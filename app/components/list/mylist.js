@@ -12,7 +12,7 @@ angular.module('testControllerViewsApp')
             templateUrl: '/components/list/mylist.html',
             restrict: 'AE',
             controller: "ListcontrollerCtrl",
-            controllerAs: "listCtrl",
+            //controllerAs: "listCtrl",
             scope: true,
             // link: function postLink(scope, element, attrs) {
             //     //element.text('this is the mylist directive');

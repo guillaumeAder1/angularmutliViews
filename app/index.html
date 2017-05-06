@@ -64,12 +64,35 @@
             </div>
             <!-- END ng-include approache -->
 
-            <div ng-controller="MasterCtrl as master">
+            <div ng-controller="MasterCtrl as parent">
                 <!--directive approach-->
                 <mylist></mylist>
                 <!--ENDdirective approach-->
 
-                <map></map>
+                <map linked="parent.selected" test="parent.selected"></map>
+            </div>
+
+
+
+            <!--TEST-->
+            <div ng-controller="ParentCtrl as parent">
+                <h3>
+                    One way data-binding
+                </h3>
+                <div class="section">
+                    <h4>
+                        Parent
+                    </h4>
+                    <p>
+                        Object: {{ parent.someObject }}
+                    </p>
+                    <p>
+                        Primitive: {{ parent.somePrimitive }}
+                    </p>
+                    <a href="" ng-click="parent.updateValues();">Change Parent Values</a>
+                </div>
+                <example obj="parent.someObject" prim="parent.somePrimitive">
+                </example>
             </div>
 
         </div>
@@ -78,6 +101,11 @@
 
 
     </div>
+
+
+
+
+
 
     <div class="footer">
         <div class="container">
@@ -117,7 +145,7 @@
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/about.js"></script>
-    <script src="scripts/directives/listdirective.js"></script>
+    <!--<script src="scripts/directives/listdirective.js"></script>-->
 
     <script src="components/list/mylist.js"></script>
     <script src="scripts/controllers/master.js"></script>
@@ -127,6 +155,8 @@
     <script src="components/map/mapController.js"></script>
     <script src="components/map/map.js"></script>
 
+    <script src="scripts/controllers/parent.js"></script>
+    <script src="scripts/directives/child.js"></script>
     <!-- endbuild -->
 
 

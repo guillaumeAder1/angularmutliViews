@@ -26,8 +26,17 @@ angular.module('testControllerViewsApp')
             });
         })();
 
-        $scope.logme = function(val) {
-            console.log(val.item.name);
-            this.$parent.$parent.selected = "totot";
+        $scope.logme = function(index) {
+
+            //this.$parent.$parent.selected = this.data[index].name;
+            $scope.$emit("listEmit", { data: this.data[index].name });
         };
+
+
+        var vm = this;
+        vm.$onInit = function() {
+            console.log("on init")
+        }
+
+
     });

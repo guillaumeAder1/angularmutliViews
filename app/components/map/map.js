@@ -3,7 +3,8 @@
 angular.module('testControllerViewsApp')
     .component("map", {
         //template: "Hello {{$ctrl.name}}, I'm {{$ctrl.myName}}!",
-        bindings: { name: '@' },
+        bindings: { linked: '@', test: "<" },
         controller: "MapCtrl",
-        templateUrl: "components/map/map.html"
+        templateUrl: "components/map/map.html",
+        //scope: true
     });

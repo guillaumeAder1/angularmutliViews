@@ -18,5 +18,21 @@ angular.module('testControllerViewsApp')
 
         $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-        $scope.value = "";
+        $scope.value = "map toto value";
+
+        //$scope.rep = $scope.$parent.selected
+        //$scope.selected = "";
+
+        $scope.$on("eventBroadcastedName", function(e, msg) {
+            console.log(e, msg)
+            $scope.evented = msg;
+        })
+
+
+        this.$onInit = function() {
+            this.linked = $scope.$parent.selected;
+            //this.test = 
+        }
+
+
     });
