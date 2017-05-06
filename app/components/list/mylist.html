@@ -1,7 +1,7 @@
 <div id="list">
     <input type="text" ng-model="test">
 
-    <div ng-repeat="item in data | filter:test" ng-click="logme(this)">
+    <div ng-repeat="item in data | filter:test" ng-click="selectItem($index)">
         {{item.name}}
     </div>
 
