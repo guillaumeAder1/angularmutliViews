@@ -33,8 +33,8 @@
 
  var example2 = {
      bindings: {
-         obj: '=',
-         prim: '='
+         obj: '<',
+         prim: '<'
      },
      template: `
     <div class="section">
