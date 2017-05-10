@@ -21,15 +21,19 @@ angular.module('testControllerViewsApp')
         $scope.markers = [];
         var infoWindow = new google.maps.InfoWindow();
 
-
+        // on data received
         $scope.$on("_displayStations::send", function(e, results) {
-
+            $scope.clearMarker();
+            // use boud to stock the position of the point and get extent later
+            $scope.bounds = new google.maps.LatLngBounds();
             for (var i in results) {
                 createMarker(returnData(results[i]));
             }
+            $scope.map.fitBounds($scope.bounds);
+
         });
 
-
+        // format data to use (title/address/coordinates)
         var returnData = function(data) {
             return {
                 lng: data.position.lng,
@@ -40,25 +44,7 @@ angular.module('testControllerViewsApp')
             };
         };
 
-        $scope.detail = function(item) {
-            console.log(item.city);
-            getBikesData.getCityBike(item.city.name).then(function(res) {
-                $scope.clearMarker();
-                if (res.data.length > 0) {
-                    $scope.bounds = new google.maps.LatLngBounds();
-                    for (var i in res.data) {
-                        createMarker(returnData(res.data[i]));
-                    }
-                    //$scope.map.fitBounds($scope.bounds);
-                    $scope.map.panToBounds($scope.bounds);
-                    //$scope.map.setZoom(12);
-                }
-                console.log(res);
-            }, function(err) {
-                console.log(err);
-            });
-        };
-
+        // remove previsou markers
         $scope.clearMarker = function(val) {
             for (var i in $scope.markers) {
                 $scope.markers[i].setMap(null);
@@ -66,8 +52,7 @@ angular.module('testControllerViewsApp')
             $scope.markers = [];
         };
 
-
-
+        // create marker and infowindow
         var createMarker = function(info) {
             var marker = new google.maps.Marker({
                 map: $scope.map,
@@ -84,16 +69,17 @@ angular.module('testControllerViewsApp')
         };
 
 
-        $scope.openInfoWindow = function(e, selectedMarker) {
-                e.preventDefault();
-                google.maps.event.trigger(selectedMarker, 'click');
-            }
-            // get boundarBx
+        // $scope.openInfoWindow = function(e, selectedMarker) {
+        //     e.preventDefault();
+        //     google.maps.event.trigger(selectedMarker, 'click');
+        // };
+
+        // DEBUG::helper (get boundarBx event) 
         var initEvent = function() {
             var initialBounds;
             google.maps.event.addListener($scope.map, 'bounds_changed', function() {
                 console.log($scope.map.getBounds());
             });
-        }
-        initEvent();
+        };
+        //initEvent();
     });
