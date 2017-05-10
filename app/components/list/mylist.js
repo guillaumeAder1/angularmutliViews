@@ -9,7 +9,7 @@
 angular.module('testControllerViewsApp')
     .directive('mylist', function() {
         return {
-            templateUrl: '/components/list/mylist.html',
+            templateUrl: 'views/mylist.html',
             restrict: 'AE',
             controller: "ListcontrollerCtrl",
             controllerAs: "listCtrl",

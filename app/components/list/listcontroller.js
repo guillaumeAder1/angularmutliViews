@@ -9,9 +9,8 @@
  */
 angular.module('testControllerViewsApp')
     .controller('ListcontrollerCtrl', function($scope, getBikes) {
-
+        // city selcted use to toggle the back button in view
         $scope.citySelected = false;
-
 
         $scope.getData = function(lookForStation) {
             if (lookForStation) {
@@ -27,6 +26,7 @@ angular.module('testControllerViewsApp')
 
             } else {
                 $scope.citySelected = false;
+
                 getBikes.getCityList().then(function(res) {
                     $scope.data = res.data;
                 }, function(err) {
@@ -36,8 +36,8 @@ angular.module('testControllerViewsApp')
             }
 
         };
-
         $scope.getData(false);
+
 
 
         $scope.selectItem = function(index) {
