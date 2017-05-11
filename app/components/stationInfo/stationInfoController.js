@@ -2,20 +2,14 @@
 
 /**
  * @ngdoc function
- * @name testControllerViewsApp.controller:ListcontrollerCtrl
+ * @name testControllerViewsApp.controller:StationinfoCtrl
  * @description
- * # ListcontrollerCtrl
+ * # StationinfoCtrl
  * Controller of the testControllerViewsApp
  */
 angular.module('testControllerViewsApp')
-    .controller('ListcontrollerCtrl', function($scope, getBikes) {
-<<<<<<< HEAD
-        // city selcted use to toggle the back button in view
+    .controller('StationinfoCtrl', function($scope, getBikes) {
         $scope.citySelected = false;
-
-=======
-        $scope.citySelected = false;
->>>>>>> bindingCallback
         $scope.getData = function(lookForStation) {
             if (lookForStation) {
                 $scope.citySelected = true;
@@ -23,30 +17,26 @@ angular.module('testControllerViewsApp')
                     $scope.data = res.data;
                     $scope.$emit("_displayStations", res.data);
                 }, function(err) {
-                    console.log("Query error::", err);
+                    console.log("Query Station error::", err);
                 });
-
             } else {
                 $scope.citySelected = false;
-
                 getBikes.getCityList().then(function(res) {
                     $scope.data = res.data;
                 }, function(err) {
-                    console.log("Query error::", err);
+                    console.log("Query City error::", err);
                 });
             }
         };
         $scope.getData(false);
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> bindingCallback
         $scope.selectItem = function(index) {
             console.log($scope.data[index].name);
             if (!$scope.citySelected) {
                 $scope.getData($scope.data[index].name);
             }
         };
+
+        // this.updateValue = function() {
+        //     this.city = "paris";
+        // }
     });
