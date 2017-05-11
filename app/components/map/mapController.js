@@ -9,6 +9,7 @@
  */
 angular.module('testControllerViewsApp')
     .controller('MapCtrl', function($scope) {
+        // test 
 
         var mapOptions = {
             zoom: 12,
