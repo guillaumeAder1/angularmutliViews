@@ -6,6 +6,6 @@ angular.module('testControllerViewsApp')
         controller: "StationinfoCtrl",
         bindings: {
             city: "<",
-            callback: "&"
+            updateValue: "&"
         }
     });

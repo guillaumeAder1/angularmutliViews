@@ -2,7 +2,7 @@
     <p>AppCtrl - defautl city: {{$ctrl.defaultCity}}</p>
 
     <div class="col-sm-2">
-        <stationinfo city="$ctrl.defaultCity"></stationinfo>
+        <stationinfo city="$ctrl.defaultCity" update-value="$ctrl.updateValue(value)"></stationinfo>
     </div>
     <div class="col-sm-10">
         <map city="$ctrl.defaultCity"></map>

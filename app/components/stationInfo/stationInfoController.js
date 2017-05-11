@@ -36,7 +36,7 @@ angular.module('testControllerViewsApp')
             }
         };
 
-        this.updateValue = function() {
-            this.city = "paris"
-        }
+        // this.updateValue = function() {
+        //     this.city = "paris";
+        // }
     });

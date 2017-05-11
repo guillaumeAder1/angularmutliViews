@@ -17,7 +17,8 @@ angular.module('testControllerViewsApp')
 
         this.defaultCity = "dublin";
 
-        this.updateValue = function() {
-            this.defaultCity = "London"
-        }
+        this.updateValue = function(value) {
+            console.log(value)
+                // this.defaultCity = value;
+        };
     });
