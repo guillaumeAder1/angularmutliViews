@@ -11,7 +11,8 @@ angular.module('testControllerViewsApp')
     .controller('ApplicationcontrollerCtrl', function($scope, getBikes) {
 
         this.defaultCity = "dublin";
-        this.stationList = ["no data"];
+        //this.stationList = { value: "no data" };
+        this.stationList = false;
 
 
         this.updateValue = function(value) {

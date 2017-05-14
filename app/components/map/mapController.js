@@ -16,6 +16,9 @@ angular.module('testControllerViewsApp')
         };
         this.$onChanges = function(changes) {
             console.log(changes)
+            if (changes.cityList && changes.cityList.currentValue) {
+                $scope.newData(changes.cityList.currentValue);
+            }
         };
 
 
@@ -33,6 +36,13 @@ angular.module('testControllerViewsApp')
 
         $scope.newData = function(data) {
             console.log(data)
+            $scope.clearMarker();
+            // use boud to stock the position of the point and get extent later
+            $scope.bounds = new google.maps.LatLngBounds();
+            for (var i in data) {
+                createMarker(returnData(data[i]));
+            }
+            $scope.map.fitBounds($scope.bounds);
         };
         // on data received
         $scope.$on("_displayStations::send", function(e, results) {
