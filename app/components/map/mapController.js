@@ -9,7 +9,15 @@
  */
 angular.module('testControllerViewsApp')
     .controller('MapCtrl', function($scope) {
-        // test 
+
+
+        this.$onInit = function() {
+            console.log("on init")
+        };
+        this.$onChanges = function(changes) {
+            console.log(changes)
+        };
+
 
         var mapOptions = {
             zoom: 12,
@@ -22,6 +30,10 @@ angular.module('testControllerViewsApp')
         $scope.markers = [];
         var infoWindow = new google.maps.InfoWindow();
 
+
+        $scope.newData = function(data) {
+            console.log(data)
+        };
         // on data received
         $scope.$on("_displayStations::send", function(e, results) {
             $scope.clearMarker();

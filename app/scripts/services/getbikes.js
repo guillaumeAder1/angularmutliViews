@@ -8,7 +8,7 @@
  * Factory in the testControllerViewsApp.
  */
 angular.module('testControllerViewsApp')
-    .factory('getBikes', function($http) {
+    .factory('getBikes', function($http, $q) {
         var APIkeyDublinBike = "cd68da53009a674d943220ef0a67623682aa00ce";
         return {
             getListBike: function() {
@@ -20,7 +20,16 @@ angular.module('testControllerViewsApp')
             },
 
             getCityStations: function(station) {
-                return $http.get("https://api.jcdecaux.com/vls/v1/stations?contract=" + station + "&apiKey=" + APIkeyDublinBike);
+                var def = $q.defer();
+                $http.get("https://api.jcdecaux.com/vls/v1/stations?contract=" + station + "&apiKey=" + APIkeyDublinBike)
+                    .then(function(res) {
+                        def.resolve(res)
+                    }, function(err) {
+                        def.reject(err);
+                    });
+
+                return def.promise;
+                // return $http.get("https://api.jcdecaux.com/vls/v1/stations?contract=" + station + "&apiKey=" + APIkeyDublinBike);
 
             }
         };

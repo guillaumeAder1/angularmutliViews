@@ -15,7 +15,7 @@ angular.module('testControllerViewsApp')
                 $scope.citySelected = true;
                 getBikes.getCityStations(lookForStation).then(function(res) {
                     $scope.data = res.data;
-                    $scope.$emit("_displayStations", res.data);
+                    //$scope.$emit("_displayStations", res.data);
                 }, function(err) {
                     console.log("Query Station error::", err);
                 });
@@ -36,7 +36,8 @@ angular.module('testControllerViewsApp')
             }
         };
 
-        // this.updateValue = function() {
-        //     this.city = "paris";
+        // this.updateValue = function(value) {
+        //     //this.city = "paris";
+        //     console.log(value);
         // }
     });
