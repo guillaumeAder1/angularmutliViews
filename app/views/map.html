@@ -1,5 +1,8 @@
 <div>
 
     {{$ctrl.city}}
+    <div>
+        <button ng-repeat="render in renderModeList" ng-click="changeRender(render)">{{render}}</button>
+    </div>
     <div id="map"></div>
 </div>

@@ -10,9 +10,12 @@
 angular.module('testControllerViewsApp')
     .controller('MapCtrl', function($scope) {
 
+        $scope.renderModeList = ["heatmap", "marker"];
+        $scope.renderMode = "heatmap";
+        $scope.heatmap = null;
 
         this.$onInit = function() {
-            console.log("on init")
+            console.log("on init");
         };
         this.$onChanges = function(changes) {
             console.log(changes)
@@ -33,28 +36,57 @@ angular.module('testControllerViewsApp')
         $scope.markers = [];
         var infoWindow = new google.maps.InfoWindow();
 
+        $scope.changeRender = function(mode) {
+            $scope.renderMode = mode;
+            $scope.newData($scope.data);
+        };
+
 
         $scope.newData = function(data) {
             console.log(data)
+            $scope.data = data;
             $scope.clearMarker();
             // use boud to stock the position of the point and get extent later
             $scope.bounds = new google.maps.LatLngBounds();
-            for (var i in data) {
-                createMarker(returnData(data[i]));
+
+            if ($scope.renderMode === "heatmap") {
+                var heatData = [];
+                for (var i in data) {
+                    var _data = returnData(data[i])
+                    var lng = _data.lng;
+                    var lat = _data.lat;
+                    var position = new google.maps.LatLng(lat, lng)
+                    heatData.push(position);
+                    $scope.bounds.extend(position);
+                }
+                $scope.heatmap = new google.maps.visualization.HeatmapLayer({
+                    data: heatData,
+                    radius: 20,
+                    map: $scope.map
+                });
+                $scope.heatmap.setMap($scope.map);
+
+            } else if ($scope.renderMode === "marker") {
+                if ($scope.heatmap) {
+                    $scope.heatmap.setMap(null);
+                }
+                for (var i in data) {
+                    createMarker(returnData(data[i]));
+                }
             }
+
             $scope.map.fitBounds($scope.bounds);
         };
         // on data received
-        $scope.$on("_displayStations::send", function(e, results) {
-            $scope.clearMarker();
-            // use boud to stock the position of the point and get extent later
-            $scope.bounds = new google.maps.LatLngBounds();
-            for (var i in results) {
-                createMarker(returnData(results[i]));
-            }
-            $scope.map.fitBounds($scope.bounds);
-
-        });
+        // $scope.$on("_displayStations::send", function(e, results) {
+        //     $scope.clearMarker();
+        //     // use boud to stock the position of the point and get extent later
+        //     $scope.bounds = new google.maps.LatLngBounds();
+        //     for (var i in results) {
+        //         createMarker(returnData(results[i]));
+        //     }
+        //     $scope.map.fitBounds($scope.bounds);
+        // });
 
         // format data to use (title/address/coordinates)
         var returnData = function(data) {
