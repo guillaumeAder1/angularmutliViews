@@ -2,7 +2,7 @@
 
     {{$ctrl.city}}
     <div class="btn-group">
-        <label class="btn btn-default" ng-repeat="render in renderModeList" ng-click="changeRender(render)" uib-btn-checkbox>{{render}}</label>
+        <label uncheckable class="btn btn-default" ng-model="renderMode" uib-btn-radio="{{render}}" ng-repeat="render in renderModeList" ng-click="changeRender(render)">{{render}}</label>
     </div>
     <div id="map"></div>
 </div>

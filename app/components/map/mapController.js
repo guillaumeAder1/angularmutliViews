@@ -10,7 +10,7 @@
 angular.module('testControllerViewsApp')
     .controller('MapCtrl', function($scope) {
 
-        $scope.renderModeList = ["heatmap", "marker", "circle"];
+        $scope.renderModeList = ["heatmap", "marker", "circle", "heatmap bikes available", "heatmap stands available"];
         $scope.renderMode = "heatmap";
         $scope.heatmap = null;
         $scope.circleList = [];
@@ -30,22 +30,26 @@ angular.module('testControllerViewsApp')
         this.$onChanges = function(changes) {
             console.log(changes)
             if (changes.cityList && changes.cityList.currentValue) {
-                $scope.newData(changes.cityList.currentValue);
+                $scope.newData(changes.cityList.currentValue, true);
             }
         };
 
         $scope.changeRender = function(mode) {
             $scope.renderMode = mode;
             if ($scope.data) {
-                $scope.newData($scope.data);
+                $scope.newData($scope.data, false);
             }
         };
 
-        $scope.newData = function(data) {
+        $scope.newData = function(data, adjustExtent) {
             $scope.data = data;
             $scope.clearMarker();
-            // use boud to stock the position of the point and get extent later
-            $scope.bounds = new google.maps.LatLngBounds();
+
+            if (adjustExtent) {
+                // use boud to stock the position of the point and get extent later
+                $scope.bounds = new google.maps.LatLngBounds();
+            }
+
             // create render 
             if ($scope.renderMode === "heatmap") {
                 var heatData = [];
@@ -72,7 +76,6 @@ angular.module('testControllerViewsApp')
                 for (var i in data) {
                     var _data = returnData(data[i]);
                     var position = { lat: _data.lat, lng: _data.lng };
-
                     var circle = new google.maps.Circle({
                         strokeColor: '#FF0000',
                         strokeOpacity: 0.8,
@@ -87,8 +90,40 @@ angular.module('testControllerViewsApp')
                     $scope.markers.push(circle);
                     $scope.bounds.extend(position);
                 }
+            } else if ($scope.renderMode === "heatmap bikes available") {
+                var heatData = [];
+
+                for (var i in data) {
+                    var _data = returnData(data[i]);
+                    var _weight = (_data.bikes / _data.totalStands).toFixed(1) * 10;
+                    var position = new google.maps.LatLng(_data.lat, _data.lng);
+                    heatData.push({ location: position, weight: _weight });
+                    $scope.bounds.extend(position);
+                }
+                $scope.heatmap = new google.maps.visualization.HeatmapLayer({
+                    data: heatData,
+                    radius: 20,
+                    map: $scope.map
+                });
+            } else if ($scope.renderMode === "heatmap stands available") {
+                var heatData = [];
+                for (var i in data) {
+                    var _data = returnData(data[i]);
+                    var _weight = (_data.freeStands / _data.totalStands).toFixed(1) * 10;
+                    var position = new google.maps.LatLng(_data.lat, _data.lng);
+                    heatData.push({ location: position, weight: _weight });
+                    $scope.bounds.extend(position);
+                }
+                $scope.heatmap = new google.maps.visualization.HeatmapLayer({
+                    data: heatData,
+                    radius: 20,
+                    map: $scope.map
+                });
             }
-            $scope.map.fitBounds($scope.bounds);
+
+            if (adjustExtent) {
+                $scope.map.fitBounds($scope.bounds);
+            }
         };
         // on data received
         // $scope.$on("_displayStations::send", function(e, results) {
@@ -108,7 +143,10 @@ angular.module('testControllerViewsApp')
                 lat: data.position.lat,
                 name: data.name,
                 status: data.status,
-                address: data.address
+                address: data.address,
+                totalStands: data.bike_stands,
+                bikes: data.available_bikes,
+                freeStands: data.available_bike_stands
             };
         };
 
