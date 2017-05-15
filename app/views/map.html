@@ -1,8 +1,8 @@
 <div>
 
     {{$ctrl.city}}
-    <div>
-        <button ng-repeat="render in renderModeList" ng-click="changeRender(render)">{{render}}</button>
+    <div class="btn-group">
+        <label class="btn btn-default" ng-repeat="render in renderModeList" ng-click="changeRender(render)" uib-btn-checkbox>{{render}}</label>
     </div>
     <div id="map"></div>
 </div>

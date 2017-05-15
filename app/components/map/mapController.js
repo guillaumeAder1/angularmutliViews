@@ -10,9 +10,19 @@
 angular.module('testControllerViewsApp')
     .controller('MapCtrl', function($scope) {
 
-        $scope.renderModeList = ["heatmap", "marker"];
+        $scope.renderModeList = ["heatmap", "marker", "circle"];
         $scope.renderMode = "heatmap";
         $scope.heatmap = null;
+        $scope.circleList = [];
+        var mapOptions = {
+            zoom: 12,
+            center: new google.maps.LatLng(53.3498, -6.2603),
+            mapTypeId: google.maps.MapTypeId.TERRAIN
+        };
+        $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+        $scope.bounds = new google.maps.LatLngBounds();
+        $scope.markers = [];
+        var infoWindow = new google.maps.InfoWindow();
 
         this.$onInit = function() {
             console.log("on init");
@@ -24,38 +34,26 @@ angular.module('testControllerViewsApp')
             }
         };
 
-
-        var mapOptions = {
-            zoom: 12,
-            center: new google.maps.LatLng(53.3498, -6.2603),
-            mapTypeId: google.maps.MapTypeId.TERRAIN
-        };
-
-        $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
-        $scope.bounds = new google.maps.LatLngBounds();
-        $scope.markers = [];
-        var infoWindow = new google.maps.InfoWindow();
-
         $scope.changeRender = function(mode) {
             $scope.renderMode = mode;
-            $scope.newData($scope.data);
+            if ($scope.data) {
+                $scope.newData($scope.data);
+            }
         };
 
-
         $scope.newData = function(data) {
-            console.log(data)
             $scope.data = data;
             $scope.clearMarker();
             // use boud to stock the position of the point and get extent later
             $scope.bounds = new google.maps.LatLngBounds();
-
+            // create render 
             if ($scope.renderMode === "heatmap") {
                 var heatData = [];
                 for (var i in data) {
-                    var _data = returnData(data[i])
+                    var _data = returnData(data[i]);
                     var lng = _data.lng;
                     var lat = _data.lat;
-                    var position = new google.maps.LatLng(lat, lng)
+                    var position = new google.maps.LatLng(lat, lng);
                     heatData.push(position);
                     $scope.bounds.extend(position);
                 }
@@ -67,14 +65,29 @@ angular.module('testControllerViewsApp')
                 $scope.heatmap.setMap($scope.map);
 
             } else if ($scope.renderMode === "marker") {
-                if ($scope.heatmap) {
-                    $scope.heatmap.setMap(null);
-                }
                 for (var i in data) {
                     createMarker(returnData(data[i]));
                 }
-            }
+            } else if ($scope.renderMode === "circle") {
+                for (var i in data) {
+                    var _data = returnData(data[i]);
+                    var position = { lat: _data.lat, lng: _data.lng };
 
+                    var circle = new google.maps.Circle({
+                        strokeColor: '#FF0000',
+                        strokeOpacity: 0.8,
+                        strokeWeight: 2,
+                        fillColor: '#FF0000',
+                        fillOpacity: 0.35,
+                        map: $scope.map,
+                        center: position,
+                        radius: 100
+                    });
+                    $scope.circleList.push(circle);
+                    $scope.markers.push(circle);
+                    $scope.bounds.extend(position);
+                }
+            }
             $scope.map.fitBounds($scope.bounds);
         };
         // on data received
@@ -99,12 +112,16 @@ angular.module('testControllerViewsApp')
             };
         };
 
-        // remove previsou markers
+        // remove previsou markers/circle
         $scope.clearMarker = function(val) {
             for (var i in $scope.markers) {
                 $scope.markers[i].setMap(null);
             }
             $scope.markers = [];
+
+            if ($scope.heatmap) {
+                $scope.heatmap.setMap(null);
+            }
         };
 
         // create marker and infowindow
