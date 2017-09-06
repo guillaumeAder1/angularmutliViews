@@ -1,0 +1,18 @@
+<div>
+    {{$ctrl.city}}
+    <div ng-if="citySelected">
+        <button ng-click="getData(false)" type="button" class="btn btn-info btn-sm">
+          <span class="glyphicon glyphicon-circle-arrow-left"></span> Back
+        </button>
+    </div>
+
+    <div id="list">
+        <input type="text" ng-model="test">
+        <!--<div ng-repeat="item in data | filter:test" ng-click="selectItem($index)" >
+            {{item.name}}
+        </div>-->
+        <div ng-repeat="item in data | filter:test" ng-click="$ctrl.updateValue({value:data[$index]})">
+            {{item.name}}
+        </div>
+    </div>
+</div>

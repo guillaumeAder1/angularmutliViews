@@ -2,7 +2,7 @@
 
 angular.module('testControllerViewsApp')
     .component('stationinfo', {
-        templateUrl: "components/stationInfo/stationInfo.html",
+        templateUrl: "views/stationInfo.html",
         controller: "StationinfoCtrl",
         bindings: {
             city: "<",
