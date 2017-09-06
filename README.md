@@ -10,3 +10,5 @@ Run `grunt` for building and `grunt serve` for preview.
 ## Testing
 
 Running `grunt test` will run the unit tests with karma.
+
+https://guillaumeader1.github.io/angularmutliViews/dist/
