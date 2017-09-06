@@ -11,19 +11,14 @@ angular.module('testControllerViewsApp')
     .controller('ApplicationcontrollerCtrl', function($scope, getBikes) {
 
         this.defaultCity = "dublin";
-        //this.stationList = { value: "no data" };
         this.stationList = false;
-
-
+        // executed when a city has been selcted from stationInfo 
         this.updateValue = function(value) {
             if (value.name != this.defaultCity) {
                 this.defaultCity = value.name;
-                var that = this;
-                getBikes.getCityStations(this.defaultCity).then(function(res) {
-                    //return res.data;
-                    that.stationList = res.data;
-                });
-                console.log(this.cityList);
+                getBikes.getCityStations(this.defaultCity).then(angular.bind(this, function(res) {
+                    this.stationList = res.data;
+                }));
                 // getBikes.getCityStations(this.defaultCity).then(function(res) {
                 //     $scope.data = res.data;
                 //     $scope.cityList = res.data;
@@ -34,8 +29,4 @@ angular.module('testControllerViewsApp')
                 // });
             }
         };
-
-        this.successCallback = function(res) {
-            this.cityList = res.data;
-        }
     });

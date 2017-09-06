@@ -27,20 +27,21 @@ angular.module('testControllerViewsApp')
         this.$onInit = function() {
             console.log("on init");
         };
+        // binded params onChange events
         this.$onChanges = function(changes) {
             console.log(changes)
             if (changes.cityList && changes.cityList.currentValue) {
                 $scope.newData(changes.cityList.currentValue, true);
             }
         };
-
+        // refresh data when render mode has changed
         $scope.changeRender = function(mode) {
             $scope.renderMode = mode;
             if ($scope.data) {
                 $scope.newData($scope.data, false);
             }
         };
-
+        // create symbology for data
         $scope.newData = function(data, adjustExtent) {
             $scope.data = data;
             $scope.clearMarker();
@@ -50,6 +51,8 @@ angular.module('testControllerViewsApp')
                 $scope.bounds = new google.maps.LatLngBounds();
             }
 
+            // TODO
+            // refactor this function
             // create render 
             if ($scope.renderMode === "heatmap") {
                 var heatData = [];
@@ -156,7 +159,6 @@ angular.module('testControllerViewsApp')
                 $scope.markers[i].setMap(null);
             }
             $scope.markers = [];
-
             if ($scope.heatmap) {
                 $scope.heatmap.setMap(null);
             }

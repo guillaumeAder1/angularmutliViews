@@ -18,20 +18,32 @@ angular
         'ngTouch',
         'ui.router'
     ])
-    .config(function($routeProvider, $stateProvider) {
-        $stateProvider.state('home', {})
-            // $routeProvider
-            //   .when('/', {
-            //     templateUrl: 'views/main.html',
-            //     controller: 'MainCtrl',
-            //     controllerAs: 'main'
-            //   })
-            //   .when('/about', {
-            //     templateUrl: 'views/about.html',
-            //     controller: 'AboutCtrl',
-            //     controllerAs: 'about'
-            //   })
-            //   .otherwise({
-            //     redirectTo: '/'
-            //   });
+    .config(function($routeProvider, $stateProvider, $locationProvider) {
+        $locationProvider.hashPrefix('');
+
+        // $stateProvider.state('city', {
+        //     url: '/:city',
+        //     component: "map",
+        //     resolve: {
+        //         app: function(application) {
+        //             console.log($stateParams.city);
+        //             return application.updateValue("dublin");
+        //         }
+        //     }
+        // });
+
+        // $routeProvider
+        //     .when('/', {
+        //         templateUrl: 'views/main.html',
+        //         controller: 'MainCtrl',
+        //         controllerAs: 'main'
+        //     })
+        //     .when('/about', {
+        //         templateUrl: 'views/about.html',
+        //         controller: 'AboutCtrl',
+        //         controllerAs: 'about'
+        //     })
+        //     .otherwise({
+        //         redirectTo: '/'
+        //     });
     });
