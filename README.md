@@ -2,7 +2,7 @@
 
 This project comsumes [JCDecaux bikes station API](https://developer.jcdecaux.com/#/home) data
 
-[View Demo](https://guillaumeader1.github.io/angularmutliViews/dist/)
+[View Demo](https://guillaumeader1.github.io/google-map-bikes-stations/dist/)
 
 ## Build & development
 
